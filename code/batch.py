@@ -36,28 +36,109 @@ def experiment_1_flow(args):
     US_gains = lowlow_flows_avg[0,:]
     US_losses = lowlow_flows_avg[1,:]
     width =0.3
-    fig,ax = plt.subplots()
-    ax.bar(np.arange(len(US_gains)), US_gains, width=width)
-    ax.bar(np.arange(len(US_losses))+ width, US_losses, width=width)
-    ax.set_xticks([0,1,2,3,4,5,6,7,8])
-    ax.set_xticklabels(["US", "Iran", "UK", "France", "Germany", "China", "Russia", "Israel", "Saudi"])
-    ax.legend(["Gains","Losses"])
-    plt.show()
+    fig, (ax1, ax2) = plt.subplots(2)
+    fig.suptitle("US-Low/Iran-Low Intensity Strategy Wealth Flows")
+    ax1.bar(np.arange(len(US_gains)), US_gains, width=width)
+    ax1.bar(np.arange(len(US_losses))+ width, US_losses, width=width)
+    ax1.set_xticks([0,1,2,3,4,5,6,7,8])
+    ax1.set_xticklabels(["US", "Iran", "UK", "France", "Germany", "China", "Russia", "Israel", "Saudi"])
+    ax1.legend(["Gains","Losses"])
+    ax1.set_title("US Gains and Losses")
+    ax1.set_ylabel("Wealth")
     Iran_gains = lowlow_flows_avg[2,:]
     Iran_losses = lowlow_flows_avg[3,:]
+    ax2.bar(np.arange(len(Iran_gains)), Iran_gains, width=width)
+    ax2.bar(np.arange(len(Iran_losses))+ width, Iran_losses, width=width)
+    ax2.set_xticks([0,1,2,3,4,5,6,7,8])
+    ax2.set_xticklabels(["US", "Iran", "UK", "France", "Germany", "China", "Russia", "Israel", "Saudi"])
+    ax2.legend(["Gains","Losses"])
+    ax2.set_title("Iran Gains and Losses")
+    ax2.set_ylabel("Wealth")
+    plt.show()
+
+    lowhigh_flows_avg = sum(np.asarray(result[1,1,:])) / batch_size
+    US_gains = lowhigh_flows_avg[0,:]
+    US_losses = lowhigh_flows_avg[1,:]
     width =0.3
-    fig,ax = plt.subplots()
-    ax.bar(np.arange(len(Iran_gains)), Iran_gains, width=width)
-    ax.bar(np.arange(len(Iran_losses))+ width, Iran_losses, width=width)
-    ax.set_xticks([0,1,2,3,4,5,6,7,8])
-    ax.set_xticklabels(["US", "Iran", "UK", "France", "Germany", "China", "Russia", "Israel", "Saudi"])
-    ax.legend(["Gains","Losses"])
+    fig, (ax1, ax2) = plt.subplots(2)
+    fig.suptitle("US-Low/Iran-High Intensity Strategy Wealth Flows")
+    ax1.bar(np.arange(len(US_gains)), US_gains, width=width)
+    ax1.bar(np.arange(len(US_losses))+ width, US_losses, width=width)
+    ax1.set_xticks([0,1,2,3,4,5,6,7,8])
+    ax1.set_xticklabels(["US", "Iran", "UK", "France", "Germany", "China", "Russia", "Israel", "Saudi"])
+    ax1.legend(["Gains","Losses"])
+    ax1.set_title("US Gains and Losses")
+    ax1.set_ylabel("Wealth")
+    Iran_gains = lowhigh_flows_avg[2,:]
+    Iran_losses = lowhigh_flows_avg[3,:]
+    ax2.bar(np.arange(len(Iran_gains)), Iran_gains, width=width)
+    ax2.bar(np.arange(len(Iran_losses))+ width, Iran_losses, width=width)
+    ax2.set_xticks([0,1,2,3,4,5,6,7,8])
+    ax2.set_xticklabels(["US", "Iran", "UK", "France", "Germany", "China", "Russia", "Israel", "Saudi"])
+    ax2.legend(["Gains","Losses"])
+    ax2.set_title("Iran Gains and Losses")
+    ax2.set_ylabel("Wealth")
+    plt.show()
+
+    highhigh_flows_avg = sum(np.asarray(result[2,1,:])) / batch_size
+    US_gains = highhigh_flows_avg[0,:]
+    US_losses = highhigh_flows_avg[1,:]
+    width =0.3
+    fig, (ax1, ax2) = plt.subplots(2)
+    fig.suptitle("US-High/Iran-High Intensity Strategy Wealth Flows")
+    ax1.bar(np.arange(len(US_gains)), US_gains, width=width)
+    ax1.bar(np.arange(len(US_losses))+ width, US_losses, width=width)
+    ax1.set_xticks([0,1,2,3,4,5,6,7,8])
+    ax1.set_xticklabels(["US", "Iran", "UK", "France", "Germany", "China", "Russia", "Israel", "Saudi"])
+    ax1.legend(["Gains","Losses"])
+    ax1.set_title("US Gains and Losses")
+    ax1.set_ylabel("Wealth")
+    Iran_gains = highhigh_flows_avg[2,:]
+    Iran_losses = highhigh_flows_avg[3,:]
+    ax2.bar(np.arange(len(Iran_gains)), Iran_gains, width=width)
+    ax2.bar(np.arange(len(Iran_losses))+ width, Iran_losses, width=width)
+    ax2.set_xticks([0,1,2,3,4,5,6,7,8])
+    ax2.set_xticklabels(["US", "Iran", "UK", "France", "Germany", "China", "Russia", "Israel", "Saudi"])
+    ax2.legend(["Gains","Losses"])
+    ax2.set_title("Iran Gains and Losses")
+    ax2.set_ylabel("Wealth")
+    plt.show()
+
+    highlow_flows_avg = sum(np.asarray(result[2,1,:])) / batch_size
+    US_gains = highlow_flows_avg[0,:]
+    US_losses = highlow_flows_avg[1,:]
+    width =0.3
+    fig, (ax1, ax2) = plt.subplots(2)
+    fig.suptitle("US-High/Iran-Low Intensity Strategy Wealth Flows")
+    ax1.bar(np.arange(len(US_gains)), US_gains, width=width)
+    ax1.bar(np.arange(len(US_losses))+ width, US_losses, width=width)
+    ax1.set_xticks([0,1,2,3,4,5,6,7,8])
+    ax1.set_xticklabels(["US", "Iran", "UK", "France", "Germany", "China", "Russia", "Israel", "Saudi"])
+    ax1.legend(["Gains","Losses"])
+    ax1.set_title("US Gains and Losses")
+    ax1.set_ylabel("Wealth")
+    Iran_gains = highlow_flows_avg[2,:]
+    Iran_losses = highlow_flows_avg[3,:]
+    ax2.bar(np.arange(len(Iran_gains)), Iran_gains, width=width)
+    ax2.bar(np.arange(len(Iran_losses))+ width, Iran_losses, width=width)
+    ax2.set_xticks([0,1,2,3,4,5,6,7,8])
+    ax2.set_xticklabels(["US", "Iran", "UK", "France", "Germany", "China", "Russia", "Israel", "Saudi"])
+    ax2.legend(["Gains","Losses"])
+    ax2.set_title("Iran Gains and Losses")
+    ax2.set_ylabel("Wealth")
     plt.show()
     res = np.asarray(means)
     
     width = 0.3
-    plt.bar(np.arange(4), res[:,0], width=width)
-    plt.bar(np.arange(4) + width, res[:,1], width=width)
+    fig, ax = plt.subplots()
+    ax.bar(np.arange(4), res[:,0], width=width)
+    ax.bar(np.arange(4) + width, res[:,1], width=width)
+    ax.set_xticks([0,1,2,3])
+    ax.set_xticklabels(["Low-Low", "Low-High", "High-High", "High-Low"])
+    ax.set_xlabel("US Intensity - Iran Intensity")
+    ax.set_ylabel("Average Tick-1000 Wealth")
+    ax.set_title("Multi-Player Results")
+    ax.legend(["US", "Iran", "UK", "France", "Germany", "China", "Russia", "Israel", "Saudi"])
     plt.show()
     return res
 
@@ -80,7 +161,7 @@ def calculate_mean(data):
     return U_sum/len(data), I_sum/len(data)
 
 def experiment_1(args):
-    batch_size = 100
+    batch_size = 1000
     with multiprocessing.Pool(processes=4) as pool:
         result = pool.starmap(run_batch, [(batch_size, "low", "low")+args, (batch_size, "low", "high")+args, (batch_size, "high", "high")+args, (batch_size, "high", "low")+args])
         means = pool.map(calculate_mean, result)
@@ -90,12 +171,19 @@ def experiment_1(args):
     
     print(means)
     res = np.asarray(means)
-    """
+    
     print(res)
     width =0.3
-    plt.bar(np.arange(4), res[:,0], width=width)
-    plt.bar(np.arange(4) + width, res[:,1], width=width)
-    plt.show()"""
+    fig, ax = plt.subplots()
+    ax.bar(np.arange(4), res[:,0], width=width)
+    ax.bar(np.arange(4) + width, res[:,1], width=width)
+    ax.set_xticks([0,1,2,3])
+    ax.set_xticklabels(["Low-Low", "Low-High", "High-High", "High-Low"])
+    ax.set_xlabel("US Intensity - Iran Intensity")
+    ax.set_ylabel("Average Tick-1000 Wealth")
+    ax.set_title("2-Player Results")
+    ax.legend(["US","Iran"])
+    plt.show()
     return res
 
 def experiment_1_sensitivity():

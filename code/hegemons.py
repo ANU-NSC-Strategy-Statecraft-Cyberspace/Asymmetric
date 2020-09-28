@@ -9,7 +9,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 
 class Context:
-    def __init__(self, linear_power=True, end_at_tick=100000, US_strat="low", Iran_strat="low", default_strat="low", coop_multiplier=1, 
+    def __init__(self, linear_power=True, end_at_tick=1000, US_strat="low", Iran_strat="low", default_strat="low", coop_multiplier=1, 
                 conflict_multiplier=1, coop_gain=0.01, war_cost=0.5, war_steal=0.5, power_scale=0.1):
         # params: US strat, Iran strat, default strat, coop multiplier, conflict multiplier, coop gain, war cost, war steal, power scale
         self.linear_power = linear_power                    # Whether to use the logarithmic or the linear power function
@@ -237,6 +237,7 @@ class State:
     def plot(self, ax):
         ax.plot(self.history)
         ax.legend(["US", "Iran", "UK", "France", "Germany", "China", "Russia", "Israel", "Saudi"])
+        #ax.legend(["US","Iran"])
         ax.set_xlabel("Tick")
         ax.set_ylabel("Wealth")
         
@@ -279,6 +280,10 @@ class State:
             gain = self.context.coop_gain * (self.wealth + other.wealth) / 2
             self.wealth += gain
             other.wealth += gain
+            if other.id in (0,1):
+                self.context.flow_array[other.id*2,self.id] += gain
+            if self.id in (0,1):
+                self.context.flow_array[self.id*2,other.id] += gain
         elif self.power() <= 1 or other.power() <= 1:
             pass
         elif aMove == "Neutral":
@@ -288,10 +293,13 @@ class State:
             # attacking
             a_intensity = self.attack_policy[other.id](self.wealth)
             self.wealth = self.wealth - self.context.war_cost*a_intensity
+            if self.id in (0,1):
+                self.context.flow_array[self.id*2+1,other.id] += self.context.war_cost*a_intensity
             if other.attribute(a_intensity):
                 b_intensity = other.retaliation_policy[self.id](a_intensity, other.wealth)
                 other.wealth = other.wealth - self.context.war_cost*b_intensity
-
+                if other.id in (0,1):
+                    self.context.flow_array[other.id*2+1,self.id] += self.context.war_cost*b_intensity
                 p_aWins = a_intensity / (a_intensity + b_intensity)
                 if random.random() < p_aWins:
                     # a wins
@@ -300,6 +308,7 @@ class State:
 
                     if other.id in (0,1):
                         self.context.flow_array[other.id*2+1,self.id] += other.wealth*self.context.war_steal*(a_intensity/self.context.power(self.context.max_wealth))
+                        
                     if self.id in (0,1):
                         self.context.flow_array[self.id*2,other.id] += other.wealth*self.context.war_steal*(a_intensity/self.context.power(self.context.max_wealth))
                     
